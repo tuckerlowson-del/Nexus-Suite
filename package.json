@@ -1,0 +1,19 @@
+{
+  "name": "william-agent",
+  "version": "1.0.0",
+  "description": "William Remote Agent",
+  "main": "agent-windows.js",
+  "scripts": {
+    "start:win": "node agent-windows.js",
+    "start:linux": "node agent-linux.js",
+    "build:win": "pkg agent-windows.js --target node18-win-x64 --output dist/william-agent-win.exe",
+    "build:linux": "pkg agent-linux.js --target node18-linux-x64 --output dist/william-agent-linux",
+    "build:mac": "pkg agent-linux.js --target node18-macos-x64 --output dist/william-agent-mac"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.7.2"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  }
+}

