@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXUS SUITE — The Ultimate FiveM AI Development Platform</title>
-  <meta name="description" content="Free all-in-one FiveM server development desktop application. 6 AI agents. 8 phases. One EXE.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5' fill='%230a0a0f' stroke='%237c3aed' stroke-width='6'/><polygon points='50,20 75,35 75,65 50,80 25,65 25,35' fill='none' stroke='%2306b6d4' stroke-width='3'/></svg>">
+  <title>Nexus Suite — FiveM AI Development Platform</title>
+  <meta name="description" content="Free all-in-one FiveM server development desktop app. 6 AI agents, 8 phases, one EXE.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,2 28,9 28,23 16,30 4,23 4,9' fill='none' stroke='%237c3aed' stroke-width='2.5'/></svg>">
   <style>
     :root {
-      --bg: #0a0a0f;
-      --sidebar: #0d0d1a;
-      --card: #111122;
-      --primary: #7c3aed;
-      --cyan: #06b6d4;
-      --success: #2ecc71;
-      --error: #e74c3c;
-      --text: #e8e8ff;
-      --muted: #8888aa;
-      --claude: #9B59B6;
-      --gpt: #2ECC71;
-      --grok: #3498DB;
-      --gemini: #F1C40F;
-      --perplexity: #1ABC9C;
-      --nexus: #7c3aed;
+      --bg: #0b0b0f;
+      --surface: #121218;
+      --surface2: #18181f;
+      --border: #2a2a35;
+      --border-hover: #3d3d4d;
+      --text: #ececf1;
+      --text-secondary: #a1a1b5;
+      --text-muted: #6b6b7b;
+      --accent: #7c3aed;
+      --accent-hover: #8b5cf6;
+      --green: #22c55e;
+      --blue: #3b82f6;
+      --yellow: #eab308;
+      --teal: #14b8a6;
+      --orange: #f59e0b;
+      --pink: #ec4899;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,392 +31,660 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       line-height: 1.6;
-      overflow-x: hidden;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
 
-    /* ===== NAV ===== */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* NAV */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(10,10,15,0.85);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 11, 15, 0.9);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(124,58,237,0.15);
-      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
     }
-    nav .container {
+    .nav-inner {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
+      height: 60px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-    .nav-logo {
-      font-weight: 900;
-      letter-spacing: 6px;
-      font-size: 1.15rem;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .nav-links { display: flex; gap: 28px; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--cyan); }
-
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh;
+    .logo {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-      position: relative;
-      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124,58,237,0.18), transparent);
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.02em;
     }
-    .hero-hex {
-      font-size: 3.2rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-      filter: drop-shadow(0 0 20px rgba(124,58,237,0.6));
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      color: var(--accent);
+      font-size: 14px;
     }
-    .hero-title {
-      font-size: clamp(2.8rem, 7vw, 4.8rem);
-      font-weight: 900;
-      letter-spacing: 10px;
-      background: linear-gradient(135deg, #c4b5fd, var(--primary), var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 12px;
+    .nav-links {
+      display: flex;
+      gap: 4px;
     }
-    .hero-tag {
-      font-size: 1.35rem;
-      color: var(--muted);
-      margin-bottom: 6px;
+    .nav-links a {
+      padding: 6px 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
     }
-    .hero-main {
-      font-size: 1.55rem;
-      font-weight: 600;
-      margin: 18px 0 36px;
+    .nav-links a:hover {
       color: var(--text);
+      background: var(--surface2);
+    }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent-hover); }
+
+    /* HERO */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+    .hero-badge span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      font-weight: 750;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-lead {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
     }
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--primary), #5b21b6);
-      color: #fff;
-      padding: 16px 42px;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: 0.5px;
-      transition: all 0.25s ease;
-      box-shadow: 0 0 40px rgba(124,58,237,0.35);
+      gap: 8px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
       border: none;
       cursor: pointer;
+      transition: all 0.15s;
     }
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 50px rgba(124,58,237,0.55);
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
     }
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      box-shadow: none;
-      margin-left: 14px;
+    .btn-primary:hover {
+      background: var(--accent-hover);
     }
-    .btn-outline:hover {
-      background: rgba(124,58,237,0.15);
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
-    .hero-badges {
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+      background: var(--surface2);
+    }
+    .hero-meta {
       display: flex;
-      gap: 18px;
-      margin-top: 40px;
-      flex-wrap: wrap;
       justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: var(--text-muted);
     }
-    .badge {
-      background: var(--card);
-      border: 1px solid rgba(124,58,237,0.25);
-      padding: 8px 18px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      color: var(--muted);
+    .hero-meta strong {
+      color: var(--text-secondary);
+      font-weight: 600;
     }
-    .badge strong { color: var(--cyan); }
 
-    /* ===== SECTION COMMON ===== */
-    section { padding: 90px 0; }
+    /* SECTIONS */
+    section {
+      padding: 80px 0;
+    }
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
     .section-title {
-      font-size: 2.1rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       margin-bottom: 12px;
     }
-    .section-sub {
-      text-align: center;
-      color: var(--muted);
-      max-width: 620px;
-      margin: 0 auto 50px;
+    .section-desc {
       font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin-bottom: 40px;
+      line-height: 1.65;
+    }
+    .section-head {
+      margin-bottom: 40px;
+    }
+    .section-head.center {
+      text-align: center;
+    }
+    .section-head.center .section-desc {
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* ===== WHAT IS IT ===== */
-    .what {
-      background: linear-gradient(180deg, transparent, rgba(13,13,26,0.6), transparent);
+    /* OVERVIEW */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
     }
-    .what-grid {
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .panel h3 {
+      font-size: 1.05rem;
+      font-weight: 650;
+      margin-bottom: 12px;
+    }
+    .panel p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+    .panel ul {
+      list-style: none;
+    }
+    .panel li {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .panel li:last-child { border-bottom: none; }
+    .panel li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-    .what-text p {
-      color: var(--muted);
-      font-size: 1.1rem;
-      margin-bottom: 18px;
-    }
-    .what-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 28px;
+      gap: 12px;
     }
     .stat {
-      background: var(--card);
-      border: 1px solid rgba(124,58,237,0.2);
-      border-radius: 12px;
-      padding: 20px 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 16px;
       text-align: center;
     }
     .stat-num {
       font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--primary);
-    }
-    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
-
-    /* ===== FEATURES ===== */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 22px;
-    }
-    .feature-card {
-      background: var(--card);
-      border: 1px solid rgba(124,58,237,0.18);
-      border-radius: 16px;
-      padding: 28px 24px;
-      transition: all 0.25s;
-    }
-    .feature-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(124,58,237,0.15);
-    }
-    .feature-icon {
-      font-size: 1.8rem;
-      margin-bottom: 14px;
-    }
-    .feature-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       color: var(--text);
     }
-    .feature-card p {
-      color: var(--muted);
-      font-size: 0.95rem;
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    /* ===== PIPELINE ===== */
-    .pipeline {
-      background: var(--sidebar);
+    /* FEATURES */
+    .features {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .phases {
+    .feat-grid {
       display: grid;
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
-    .phase {
-      display: grid;
-      grid-template-columns: 70px 1fr;
-      gap: 18px;
-      background: var(--card);
-      border: 1px solid rgba(124,58,237,0.15);
+    .feat {
+      background: var(--bg);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 18px 22px;
-      align-items: center;
-      transition: border-color 0.2s;
+      padding: 24px;
+      transition: border-color 0.15s;
     }
-    .phase:hover { border-color: var(--cyan); }
-    .phase-num {
-      width: 48px; height: 48px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--primary), #5b21b6);
+    .feat:hover { border-color: var(--border-hover); }
+    .feat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 18px;
+      margin-bottom: 16px;
     }
-    .phase h4 { font-size: 1.05rem; margin-bottom: 2px; }
-    .phase p { color: var(--muted); font-size: 0.9rem; }
+    .feat h3 {
+      font-size: 1rem;
+      font-weight: 650;
+      margin-bottom: 8px;
+    }
+    .feat p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
 
-    /* ===== AGENTS ===== */
-    .agents-grid {
+    /* CONSOLE */
+    .console-wrap {
+      margin-top: 40px;
+    }
+    .console {
+      background: #0a0a0e;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+    }
+    .console-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .console-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .console-body {
+      padding: 16px 18px;
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+    .console-body .ts { color: #4a4a5a; }
+    .console-body .ph { color: #67e8f9; }
+    .console-body .ok { color: #4ade80; }
+    .console-body .ai { color: #c4b5fd; }
+    .console-body .warn { color: #fbbf24; }
+
+    /* PIPELINE */
+    .pipe-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
-    .agent-card {
-      background: var(--card);
-      border-radius: 14px;
-      padding: 24px 20px;
-      border: 1px solid transparent;
+    .pipe {
+      display: flex;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      transition: border-color 0.15s;
+    }
+    .pipe:hover { border-color: var(--border-hover); }
+    .pipe-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .pipe h4 {
+      font-size: 0.95rem;
+      font-weight: 650;
+      margin-bottom: 3px;
+    }
+    .pipe p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* AGENTS */
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .agent {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px 18px;
       text-align: center;
-      transition: all 0.25s;
+      transition: border-color 0.15s;
     }
-    .agent-card:hover { transform: translateY(-3px); }
+    .agent:hover { border-color: var(--border-hover); }
     .agent-dot {
-      width: 14px; height: 14px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       margin: 0 auto 12px;
     }
-    .agent-card h3 { font-size: 1.15rem; margin-bottom: 6px; }
-    .agent-card p { color: var(--muted); font-size: 0.9rem; }
+    .agent h3 {
+      font-size: 1rem;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+    .agent p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+    .agent-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
 
-    /* ===== INSTALL ===== */
+    /* TECH */
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 36px;
+    }
+    .tech {
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    .tech b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* INSTALL */
+    .install {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
     .steps {
-      display: grid;
-      gap: 16px;
-      max-width: 700px;
+      max-width: 640px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .step {
       display: flex;
-      gap: 18px;
-      background: var(--card);
-      border: 1px solid rgba(124,58,237,0.15);
-      border-radius: 12px;
-      padding: 20px 22px;
+      gap: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
       align-items: flex-start;
     }
     .step-num {
-      min-width: 36px; height: 36px;
-      border-radius: 8px;
-      background: var(--primary);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 0.95rem;
+      flex-shrink: 0;
     }
-    .step h4 { margin-bottom: 4px; }
-    .step p { color: var(--muted); font-size: 0.92rem; }
+    .step h4 {
+      font-size: 0.95rem;
+      font-weight: 650;
+      margin-bottom: 2px;
+    }
+    .step p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
 
-    /* ===== DOWNLOAD ===== */
+    /* DOWNLOAD */
     .download {
       text-align: center;
-      background: radial-gradient(ellipse at center, rgba(124,58,237,0.12), transparent 70%);
-      padding: 100px 24px;
+      padding: 90px 0;
     }
-    .download h2 { margin-bottom: 16px; }
-    .download p { color: var(--muted); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
-
-    /* ===== FOOTER ===== */
-    footer {
-      border-top: 1px solid rgba(124,58,237,0.15);
-      padding: 40px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
+    .download-box {
+      display: inline-block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 48px 56px;
+      max-width: 480px;
     }
-    footer a { color: var(--cyan); text-decoration: none; }
-    footer .brand {
-      font-weight: 800;
-      letter-spacing: 4px;
-      color: var(--primary);
+    .download-box h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
       margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .download-box p {
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+    .download-meta {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    footer .brand {
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    footer a {
+      color: var(--accent);
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      .overview-grid,
+      .feat-grid,
+      .agent-grid,
+      .pipe-grid {
+        grid-template-columns: 1fr;
+      }
       .nav-links { display: none; }
-      .what-grid { grid-template-columns: 1fr; }
-      .hero-title { letter-spacing: 4px; }
-      .btn-outline { margin-left: 0; margin-top: 12px; }
-      .hero .btn-group { display: flex; flex-direction: column; align-items: center; }
+      .hero { padding: 72px 0 60px; }
+      .download-box { padding: 36px 24px; }
+      .hero-meta { gap: 16px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="container">
-    <div class="nav-logo">⬡ NEXUS SUITE</div>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">⬡</span>
+      Nexus Suite
+    </a>
     <div class="nav-links">
+      <a href="#overview">Overview</a>
       <a href="#features">Features</a>
-      <a href="#pipeline">How It Works</a>
-      <a href="#agents">AI Agents</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#agents">Agents</a>
       <a href="#install">Install</a>
-      <a href="#download">Download</a>
     </div>
+    <a href="#download" class="nav-cta">Download</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-hex">⬡</div>
-  <h1 class="hero-title">NEXUS SUITE</h1>
-  <p class="hero-tag">Free Forever. No Subscriptions.</p>
-  <p class="hero-main">6 AIs. 8 Phases. One EXE.</p>
-  <div class="btn-group">
-    <a href="#download" class="btn">⬇ Download Now</a>
-    <a href="#pipeline" class="btn btn-outline">See How It Works</a>
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span></span> Free forever · No subscriptions</div>
+    <h1>Build complete FiveM resources with <em>6 AI agents</em></h1>
+    <p class="hero-lead">
+      One desktop app. Eight automated phases. From idea to deployed resource — without juggling tabs or writing everything by hand.
+    </p>
+    <div class="hero-actions">
+      <a href="nexus-suite.zip" class="btn btn-primary" download="NexusSuite.zip">Download for Windows</a>
+      <a href="#pipeline" class="btn btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-meta">
+      <div><strong>6</strong> AI agents</div>
+      <div><strong>8</strong> phases</div>
+      <div><strong>1</strong> EXE</div>
+      <div>Built by <strong>TuckerLawson</strong></div>
+    </div>
   </div>
-  <div class="hero-badges">
-    <div class="badge"><strong>Free</strong> Desktop App</div>
-    <div class="badge"><strong>6</strong> AI Agents</div>
-    <div class="badge"><strong>8</strong> Phase Pipeline</div>
-    <div class="badge">Built by <strong>TuckerLawson</strong></div>
-  </div>
-</section>
+</header>
 
-<!-- WHAT IS IT -->
-<section class="what" id="what">
-  <div class="container">
-    <h2 class="section-title">What Is Nexus Suite?</h2>
-    <p class="section-sub">The only all-in-one FiveM server development desktop application powered by a multi-agent AI pipeline.</p>
-    <div class="what-grid">
-      <div class="what-text">
-        <p>Nexus Suite uses <strong>6 specialized AI agents</strong> working together across <strong>8 phases</strong> to automatically build, debug, test, and deploy complete FiveM scripts and resources — all from one single EXE.</p>
-        <p>You only pay for your own AI API keys (roughly $5–20/month). The app itself is completely free forever.</p>
-        <p>No more jumping between ChatGPT, Claude, and docs. One pipeline. One click. Production-ready resources.</p>
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Overview</div>
+      <h2 class="section-title">What is Nexus Suite?</h2>
+      <p class="section-desc">
+        A free desktop app that runs a multi-agent AI pipeline to plan, write, debug, test, and deploy FiveM scripts and resources for you.
+      </p>
+    </div>
+    <div class="overview-grid">
+      <div class="panel">
+        <h3>How it helps</h3>
+        <p>
+          You describe what you want. Six specialized models work through eight phases — scanning your server, writing code, reviewing it, building UI, checking security, and deploying. You only pay for your own API keys (usually $5–20/month).
+        </p>
+        <ul>
+          <li>No more switching between ChatGPT, Claude, and docs</li>
+          <li>Live server panel with console and Quick Fix</li>
+          <li>Security audit before every deploy</li>
+          <li>Auto-fix loop when runtime errors appear</li>
+          <li>Diff viewer and confidence scores on every change</li>
+        </ul>
       </div>
-      <div class="what-stats">
-        <div class="stat">
-          <div class="stat-num">6</div>
-          <div class="stat-label">AI Agents</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">8</div>
-          <div class="stat-label">Phases</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">1</div>
-          <div class="stat-label">EXE</div>
+      <div class="panel">
+        <h3>At a glance</h3>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num">6</div>
+            <div class="stat-label">AI Agents</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">8</div>
+            <div class="stat-label">Phases</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">1</div>
+            <div class="stat-label">EXE</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">$0</div>
+            <div class="stat-label">App cost</div>
+          </div>
         </div>
       </div>
     </div>
@@ -423,190 +692,237 @@
 </section>
 
 <!-- FEATURES -->
-<section id="features">
-  <div class="container">
-    <h2 class="section-title">Features</h2>
-    <p class="section-sub">Everything you need to build, manage, and deploy FiveM resources with AI.</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🧠</div>
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-label">Features</div>
+      <h2 class="section-title">Everything in one place</h2>
+      <p class="section-desc">Core tools for building and managing FiveM resources without leaving the app.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="feat-icon">🧠</div>
         <h3>Nexus AI Core</h3>
-        <p>Multi-agent pipeline that plans, writes, reviews, debugs, builds UI, tests, audits security, and deploys — automatically.</p>
+        <p>Multi-agent pipeline that plans, writes, reviews, debugs, builds NUI, tests, audits, and deploys.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🖥</div>
+      <div class="feat">
+        <div class="feat-icon">🖥</div>
         <h3>Nexus Panel</h3>
-        <p>Start / Stop / Restart your FiveM server, live console with Quick Fix buttons, server.cfg editor, and full file manager.</p>
+        <p>Start, stop, and restart your server. Live console, Quick Fix buttons, cfg editor, and file manager.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📚</div>
+      <div class="feat">
+        <div class="feat-icon">📚</div>
         <h3>Resource Library</h3>
-        <p>Every script you build is automatically saved with change logs, confidence scores, and smart diff viewer before writes.</p>
+        <p>Every script you build is saved with confidence scores, change logs, and a diff view before writes.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔧</div>
-        <h3>Quick Fix System</h3>
-        <p>Every console error gets a one-click Quick Fix button. The AI diagnoses and patches live.</p>
+      <div class="feat">
+        <div class="feat-icon">⚡</div>
+        <h3>Quick Fix</h3>
+        <p>Console errors get a one-click fix. The AI diagnoses and patches while the server is running.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛡</div>
+      <div class="feat">
+        <div class="feat-icon">🛡</div>
         <h3>Security Audit</h3>
-        <p>Claude runs a full exploit check before any resource is deployed to your server.</p>
+        <p>Exploit and injection checks run before any resource is allowed to deploy.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">💾</div>
+      <div class="feat">
+        <div class="feat-icon">💾</div>
         <h3>Backup & Restore</h3>
-        <p>One-click backup of your entire resources folder and config. Instant restore when things go sideways.</p>
+        <p>One-click backup of resources and config. Restore instantly when something goes wrong.</p>
+      </div>
+    </div>
+
+    <div class="console-wrap">
+      <div class="console">
+        <div class="console-bar">
+          <span class="console-dot" style="background:#ef4444"></span>
+          <span class="console-dot" style="background:#eab308"></span>
+          <span class="console-dot" style="background:#22c55e"></span>
+          <span style="margin-left:6px">nexus-ai-core — pipeline output</span>
+        </div>
+        <div class="console-body">
+          <div><span class="ts">[00:14:02]</span> <span class="ph">PHASE 1</span> — Server Scanner online</div>
+          <div><span class="ts">[00:14:03]</span> Framework detected: <span class="ok">ESX Legacy</span> · 47 resources indexed</div>
+          <div><span class="ts">[00:14:05]</span> <span class="ph">PHASE 2</span> — Planning job graph…</div>
+          <div><span class="ts">[00:14:07]</span> <span class="ai">Claude</span> assigned 6 tasks · confidence <span class="ok">0.94</span></div>
+          <div><span class="ts">[00:14:11]</span> <span class="ph">PHASE 3</span> — <span class="ai">GPT-4o</span> writing client.lua + server.lua</div>
+          <div><span class="ts">[00:14:18]</span> <span class="ok">✓</span> Code written · <span class="ai">Nexus AI</span> validation passed</div>
+          <div><span class="ts">[00:14:22]</span> <span class="ph">PHASE 4</span> — <span class="ai">Grok</span> bug scan · 0 critical</div>
+          <div><span class="ts">[00:14:26]</span> <span class="ph">PHASE 5</span> — <span class="ai">Gemini</span> building NUI</div>
+          <div><span class="ts">[00:14:29]</span> <span class="ph">PHASE 7</span> — Security audit <span class="ok">CLEAN</span></div>
+          <div><span class="ts">[00:14:31]</span> <span class="ok">DEPLOYED</span> resource nexus_banking</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PIPELINE -->
-<section class="pipeline" id="pipeline">
-  <div class="container">
-    <h2 class="section-title">How It Works</h2>
-    <p class="section-sub">8 phases. 6 AIs. Zero manual coding required.</p>
-    <div class="phases">
-      <div class="phase">
-        <div class="phase-num">01</div>
+<section id="pipeline">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-label">Pipeline</div>
+      <h2 class="section-title">How it works</h2>
+      <p class="section-desc">Eight phases. Six agents. You describe the task — the pipeline does the rest.</p>
+    </div>
+    <div class="pipe-grid">
+      <div class="pipe">
+        <div class="pipe-num">01</div>
         <div>
           <h4>Server Scanner</h4>
-          <p>Claude scans your framework, existing resources, and database schema.</p>
+          <p>Claude scans your framework, resources, and database.</p>
         </div>
       </div>
-      <div class="phase">
-        <div class="phase-num">02</div>
+      <div class="pipe">
+        <div class="pipe-num">02</div>
         <div>
           <h4>Planning</h4>
-          <p>Claude breaks your request into ordered jobs and assigns ownership.</p>
+          <p>Claude breaks the request into ordered jobs.</p>
         </div>
       </div>
-      <div class="phase">
-        <div class="phase-num">03</div>
+      <div class="pipe">
+        <div class="pipe-num">03</div>
         <div>
           <h4>Code Writing</h4>
-          <p>GPT-4o writes the code. Claude reviews. Nexus AI validates FiveM standards.</p>
+          <p>GPT-4o writes. Claude reviews. Nexus AI validates.</p>
         </div>
       </div>
-      <div class="phase">
-        <div class="phase-num">04</div>
+      <div class="pipe">
+        <div class="pipe-num">04</div>
         <div>
           <h4>Debugging</h4>
-          <p>Grok finds bugs fast. Claude does deep review. GPT-4o cleans syntax.</p>
+          <p>Grok finds bugs. Claude deep-reviews. GPT-4o cleans syntax.</p>
         </div>
       </div>
-      <div class="phase">
-        <div class="phase-num">05</div>
+      <div class="pipe">
+        <div class="pipe-num">05</div>
         <div>
-          <h4>UI / NUI Building</h4>
-          <p>Claude structures. Gemini builds HTML/CSS. GPT-4o writes the JS. Nexus validates.</p>
+          <h4>UI / NUI</h4>
+          <p>Claude structures. Gemini builds HTML/CSS. GPT-4o writes JS.</p>
         </div>
       </div>
-      <div class="phase">
-        <div class="phase-num">06</div>
+      <div class="pipe">
+        <div class="pipe-num">06</div>
         <div>
           <h4>QA Testing</h4>
-          <p>Perplexity checks live docs. Claude logic check. Gemini UI check.</p>
+          <p>Perplexity checks docs. Claude checks logic. Gemini checks UI.</p>
         </div>
       </div>
-      <div class="phase">
-        <div class="phase-num">07</div>
+      <div class="pipe">
+        <div class="pipe-num">07</div>
         <div>
           <h4>Security Audit</h4>
-          <p>Claude hunts for common FiveM exploits and injection vectors before deploy.</p>
+          <p>Claude looks for common FiveM exploits before deploy.</p>
         </div>
       </div>
-      <div class="phase">
-        <div class="phase-num">08</div>
+      <div class="pipe">
+        <div class="pipe-num">08</div>
         <div>
-          <h4>Deploy + Self-Fix Loop</h4>
-          <p>Writes files, restarts resource, monitors console, auto-fixes any runtime errors.</p>
+          <h4>Deploy + Self-Fix</h4>
+          <p>Writes files, restarts, monitors console, auto-fixes errors.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AI AGENTS -->
-<section id="agents">
-  <div class="container">
-    <h2 class="section-title">AI Agents</h2>
-    <p class="section-sub">Six specialized models working as a team.</p>
-    <div class="agents-grid">
-      <div class="agent-card" style="border-color: #9B59B6;">
-        <div class="agent-dot" style="background:#9B59B6;"></div>
-        <h3 style="color:#9B59B6;">Claude</h3>
-        <p>Planner • Reviewer • Security • Deep Debug</p>
+<!-- AGENTS -->
+<section id="agents" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-label">Agents</div>
+      <h2 class="section-title">Who does the work</h2>
+      <p class="section-desc">Six models with clear roles. They hand work to each other instead of competing.</p>
+    </div>
+    <div class="agent-grid">
+      <div class="agent">
+        <div class="agent-dot" style="background:#a78bfa"></div>
+        <h3>Claude</h3>
+        <p>Planner, reviewer, security, deep debug</p>
+        <span class="agent-tag">Strategist</span>
       </div>
-      <div class="agent-card" style="border-color: #2ECC71;">
-        <div class="agent-dot" style="background:#2ECC71;"></div>
-        <h3 style="color:#2ECC71;">GPT-4o</h3>
-        <p>Lead Coder • JS Writer • Syntax Debug</p>
+      <div class="agent">
+        <div class="agent-dot" style="background:#4ade80"></div>
+        <h3>GPT-4o</h3>
+        <p>Lead coder, JS writer, syntax pass</p>
+        <span class="agent-tag">Code engine</span>
       </div>
-      <div class="agent-card" style="border-color: #3498DB;">
-        <div class="agent-dot" style="background:#3498DB;"></div>
-        <h3 style="color:#3498DB;">Grok</h3>
-        <p>Fast Bug Scanner</p>
+      <div class="agent">
+        <div class="agent-dot" style="background:#60a5fa"></div>
+        <h3>Grok</h3>
+        <p>Fast bug scanner</p>
+        <span class="agent-tag">Rapid response</span>
       </div>
-      <div class="agent-card" style="border-color: #F1C40F;">
-        <div class="agent-dot" style="background:#F1C40F;"></div>
-        <h3 style="color:#F1C40F;">Gemini</h3>
-        <p>HTML/CSS Builder • UI QA</p>
+      <div class="agent">
+        <div class="agent-dot" style="background:#fbbf24"></div>
+        <h3>Gemini</h3>
+        <p>HTML/CSS builder, UI QA</p>
+        <span class="agent-tag">Frontend</span>
       </div>
-      <div class="agent-card" style="border-color: #1ABC9C;">
-        <div class="agent-dot" style="background:#1ABC9C;"></div>
-        <h3 style="color:#1ABC9C;">Perplexity</h3>
-        <p>Live Docs QA Check</p>
+      <div class="agent">
+        <div class="agent-dot" style="background:#2dd4bf"></div>
+        <h3>Perplexity</h3>
+        <p>Live docs and QA checks</p>
+        <span class="agent-tag">Knowledge</span>
       </div>
-      <div class="agent-card" style="border-color: #7c3aed;">
-        <div class="agent-dot" style="background:#7c3aed;"></div>
-        <h3 style="color:#7c3aed;">Nexus AI</h3>
-        <p>FiveM Standards Validator</p>
+      <div class="agent">
+        <div class="agent-dot" style="background:#7c3aed"></div>
+        <h3>Nexus AI</h3>
+        <p>FiveM standards validator</p>
+        <span class="agent-tag">Final check</span>
       </div>
+    </div>
+    <div class="tech-row">
+      <div class="tech"><b>Lang</b> Python 3.11+</div>
+      <div class="tech"><b>UI</b> CustomTkinter</div>
+      <div class="tech"><b>Build</b> PyInstaller</div>
+      <div class="tech"><b>APIs</b> Anthropic · OpenAI · xAI · Google · Perplexity</div>
     </div>
   </div>
 </section>
 
 <!-- INSTALL -->
-<section id="install" style="background: var(--sidebar);">
-  <div class="container">
-    <h2 class="section-title">How To Install</h2>
-    <p class="section-sub">Five simple steps. Zero hassle.</p>
+<section class="install" id="install">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="section-label">Install</div>
+      <h2 class="section-title">Get running in five steps</h2>
+      <p class="section-desc">No installer wizard. Extract, run the batch file, add your keys.</p>
+    </div>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <div>
           <h4>Download the ZIP</h4>
-          <p>Grab the latest release from the download button below.</p>
+          <p>Use the button on this page. The file downloads directly.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div>
-          <h4>Extract it anywhere</h4>
-          <p>Put the folder wherever you want on your PC.</p>
+          <h4>Extract it</h4>
+          <p>Put the folder anywhere on your PC.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div>
           <h4>Run install_and_build.bat</h4>
-          <p>Double-click it. It installs everything needed and launches the app when ready.</p>
+          <p>It installs what’s needed and launches the app when ready.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div>
-          <h4>Paste your API keys</h4>
-          <p>Open the app → Setup → drop in Anthropic, OpenAI, xAI, Google, and Perplexity keys.</p>
+          <h4>Add your API keys</h4>
+          <p>Open Setup and paste keys for Anthropic, OpenAI, xAI, Google, and Perplexity.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
         <div>
-          <h4>Build your first resource</h4>
-          <p>Go to Nexus AI Core and type any task. Watch the 8-phase pipeline do the rest.</p>
+          <h4>Run your first task</h4>
+          <p>Open Nexus AI Core, type what you want built, and let the pipeline run.</p>
         </div>
       </div>
     </div>
@@ -615,24 +931,21 @@
 
 <!-- DOWNLOAD -->
 <section class="download" id="download">
-  <div class="container">
-    <h2 class="section-title">Download Nexus Suite</h2>
-    <p>Free forever. No subscriptions. Just bring your own API keys.</p>
-    <a href="https://github.com/TuckerLawson/nexus-suite/releases" class="btn" target="_blank" rel="noopener">
-      ⬇ Download ZIP
-    </a>
-    <p style="margin-top:24px;font-size:0.9rem;color:var(--muted);">
-      Also available on GitHub Releases • Built by TuckerLawson
-    </p>
+  <div class="wrap">
+    <div class="download-box">
+      <h2>Download Nexus Suite</h2>
+      <p>Free forever. No subscriptions. You only pay for the API keys you use.</p>
+      <a href="nexus-suite.zip" class="btn btn-primary" download="NexusSuite.zip">Download ZIP</a>
+      <div class="download-meta">Windows · Python 3.11+ · ~25 KB</div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="brand">⬡ NEXUS SUITE</div>
+  <div class="wrap">
+    <div class="brand">⬡ Nexus Suite</div>
     <p>Build. Debug. Deploy. Automatically.</p>
-    <p style="margin-top:12px;">Built by <a href="#">TuckerLawson</a> • Free Forever</p>
+    <p style="margin-top:8px">Built by <a href="#">TuckerLawson</a> · Free forever</p>
   </div>
 </footer>
 
