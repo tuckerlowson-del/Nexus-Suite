@@ -1,11 +1,13 @@
 {
   "name": "nexus-suite-website",
   "version": "1.0.0",
-  "description": "Nexus Suite - Official landing page",
+  "private": true,
+  "description": "Nexus Suite landing page",
+  "main": "server.js",
   "scripts": {
-    "start": "npx serve -s . -l $PORT"
+    "start": "node server.js"
   },
-  "dependencies": {
-    "serve": "^14.2.3"
+  "engines": {
+    "node": ">=18"
   }
 }
